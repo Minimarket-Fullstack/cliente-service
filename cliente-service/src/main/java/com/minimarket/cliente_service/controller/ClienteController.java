@@ -10,4 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
+
+    //AQUÍ VA EL CRUD, APLICAR REGLA DE NEGOCIO
+    //VALIDACIONES BINDINGRESULT Y TRYCATCH
+    //PARA QUE QUEDE LARAJA
 }
