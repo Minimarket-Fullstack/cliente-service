@@ -16,4 +16,33 @@ public class ClienteService {
     public List<Cliente> findAll(){
         return clienteRepository.findAll();
     }
+
+    public Cliente findById(long id){ return clienteRepository.findById(id).get();}
+
+    public Cliente save(Cliente cliente){ return clienteRepository.save(cliente);}
+
+    public boolean existePorRut(String rut){
+        return clienteRepository.findByRut(rut).isPresent();
+    }
+
+    public Cliente findByRut(String rut){
+        return clienteRepository.findByRut(rut).orElse(null);
+    }
+
+    //Probando cosas thro new runtimexception
+    public Cliente desactivarCliente(Long id, String rut){
+        Cliente clienteId = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(("ID NO ENCONTRADO")));
+
+        if (!clienteId.getRut().equals(rut)){
+            throw new RuntimeException("EL RUT INGRESADO NO CORRESPONDE AL ID DEL CLIENTE");
+        }
+
+        clienteId.setActivo(false);
+
+        return clienteRepository.save(clienteId);
+    }
+
+
+
 }

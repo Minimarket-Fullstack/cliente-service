@@ -36,6 +36,8 @@ public class Cliente {
     @Email(message = "EL EMAIL DEBE SER VÁLIDO")
     private String email;
 
+
+    //Borrado lógico, para que queden las compras, pero no el ID del q compra..
     @Column(nullable = false)
     private boolean activo = true;
 
