@@ -22,7 +22,6 @@ public class ClienteController {
     //AQUÍ VA EL CRUD, APLICAR REGLA DE NEGOCIO
     //VALIDACIONES BINDINGRESULT Y TRYCATCH
     //PARA QUE QUEDE LARAJA
-
     @GetMapping
     public ResponseEntity<?> listarClientes(){
         try{
@@ -35,6 +34,8 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
+
+
 
     @PostMapping
     public ResponseEntity<?> guardarCliente(@Valid @RequestBody Cliente cliente, BindingResult result){
@@ -56,12 +57,10 @@ public class ClienteController {
             error.put("error", "Error al intentar guardar al cliente");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
-
-
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente, BindingResult result){
+    public ResponseEntity<?> actualizarCliente(@PathVariable Long id, @Valid @RequestBody Cliente cliente, BindingResult result){
         try{
 
             if(result.hasErrors()){
@@ -95,8 +94,8 @@ public class ClienteController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarCliente(@PathVariable Long id){
+    @DeleteMapping("/eliminar/{id}/{rut}")
+    public ResponseEntity<?> eliminarCliente(@PathVariable Long id, @PathVariable String rut){
         try{
             Cliente cliente = clienteService.findById(id);
 
@@ -107,11 +106,11 @@ public class ClienteController {
             }
 
             cliente.setActivo(false);
+            clienteService.desactivarCliente(id, rut);
             clienteService.save(cliente);
 
             Map<String, String> exito = new HashMap<>();
             exito.put("mensaje", "Cliente desactivado correctamente.");
-
             return ResponseEntity.ok(exito);
 
         } catch (Exception e) {
@@ -120,6 +119,54 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
 
+    }
+
+    @GetMapping("/rut/{rut}")
+    public ResponseEntity<?> buscarPorRut(@PathVariable String rut){
+        try{
+
+            Cliente cliente = clienteService.findByRut(rut);
+            if (cliente == null || !cliente.isActivo()){
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "El cliente no se encontró o se encuentra inactivo");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+            }
+
+            return ResponseEntity.ok(cliente);
+
+        }catch(Exception e){
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Ocurrió un problema al buscar el cliente por su RUT");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
+    // este endpoint esta pensado para q otro microservicio
+    //valide q existe, no para traer el objeto completo en el json
+    @GetMapping("/{id}/existe")
+    public ResponseEntity<?> findClienteById(@PathVariable Long id){
+        try{
+            Cliente clienteEncontrado = clienteService.findById(id);
+
+            if(clienteEncontrado == null){
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "cliente no encontrado");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+            }
+
+            if(!clienteEncontrado.isActivo()){
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "cliente se encuentra inactivo");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+            }
+
+            return ResponseEntity.ok(true);
+
+
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Ocurrió un problema al buscar el cliente por su ID");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
     }
 
 

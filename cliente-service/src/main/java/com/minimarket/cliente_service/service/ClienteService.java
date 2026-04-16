@@ -14,10 +14,13 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public List<Cliente> findAll(){
-        return clienteRepository.findAll();
+        return clienteRepository.findByActivoTrue();
+        // para q no liste los inactivos también
     }
-
-    public Cliente findById(long id){ return clienteRepository.findById(id).get();}
+                                                                            //.get Claude me reviso el código
+                                                                            // y me dijo q era mejor ponerle orelse, pq
+                                                                            //sino me retorna un 500 y lo quiero mantener con lo q tengo en el controller
+    public Cliente findById(long id){ return clienteRepository.findById(id).orElse(null);}
 
     public Cliente save(Cliente cliente){ return clienteRepository.save(cliente);}
 
@@ -30,11 +33,11 @@ public class ClienteService {
     }
 
     //Probando cosas thro new runtimexception
-    public Cliente desactivarCliente(Long id, String rut){
+    public Cliente desactivarCliente(Long id, String rut) {
         Cliente clienteId = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(("ID NO ENCONTRADO")));
 
-        if (!clienteId.getRut().equals(rut)){
+        if (!clienteId.getRut().equals(rut)) {
             throw new RuntimeException("EL RUT INGRESADO NO CORRESPONDE AL ID DEL CLIENTE");
         }
 

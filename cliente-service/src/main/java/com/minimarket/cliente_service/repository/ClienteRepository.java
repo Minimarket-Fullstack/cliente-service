@@ -13,4 +13,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Optional<Cliente> findByRut(String rut);
 
     List<Cliente> findByActivoTrue();
+
+
+
+
 }
