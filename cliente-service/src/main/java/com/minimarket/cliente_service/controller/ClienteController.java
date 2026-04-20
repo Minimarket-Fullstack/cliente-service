@@ -47,6 +47,12 @@ public class ClienteController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errores);
             }
 
+            if (clienteService.existePorRut(cliente.getRut())){
+                Map<String, String> error = new HashMap<>();
+                error.put("ERROR", "RUT YA REGISTRADO");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
+
             Cliente cliente1 = clienteService.save(cliente);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(cliente1);
@@ -97,23 +103,19 @@ public class ClienteController {
     @DeleteMapping("/eliminar/{id}/{rut}")
     public ResponseEntity<?> eliminarCliente(@PathVariable Long id, @PathVariable String rut){
         try{
-            Cliente cliente = clienteService.findById(id);
-
-            if (cliente == null){
-                Map<String, String> error = new HashMap<>();
-                error.put("error", "No se encontró el cliente que desea eliminar");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-            }
-
-            cliente.setActivo(false);
-            clienteService.desactivarCliente(id, rut);
-            clienteService.save(cliente);
+            clienteService.desactivarCliente(id,rut);
 
             Map<String, String> exito = new HashMap<>();
             exito.put("mensaje", "Cliente desactivado correctamente.");
             return ResponseEntity.ok(exito);
 
-        } catch (Exception e) {
+        //aquí para usar lo q hice en el service
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+
+        } catch (Exception e) { // y este me tira el error de la bd
             Map<String, String> error = new HashMap<>();
             error.put("error", "Error al intentar procesar la solicitud");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
@@ -126,9 +128,16 @@ public class ClienteController {
         try{
 
             Cliente cliente = clienteService.findByRut(rut);
-            if (cliente == null || !cliente.isActivo()){
+            if (cliente == null){
                 Map<String, String> error = new HashMap<>();
-                error.put("error", "El cliente no se encontró o se encuentra inactivo");
+                error.put("error", "El cliente no se encontró");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+            }
+
+            // los tenia junto estas condiciones, y me devolvían lo mismo
+            if(!cliente.isActivo()){
+                Map<String, String> error = new HashMap<>();
+                error.put("Error", "El cliente se encuentra inactivo");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
             }
 
@@ -140,8 +149,10 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
+
     // este endpoint esta pensado para q otro microservicio
     //valide q existe, no para traer el objeto completo en el json
+    //yo cacho q después se conectará con el microservicio VENTAS
     @GetMapping("/{id}/existe")
     public ResponseEntity<?> findClienteById(@PathVariable Long id){
         try{
@@ -160,8 +171,6 @@ public class ClienteController {
             }
 
             return ResponseEntity.ok(true);
-
-
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
             error.put("error", "Ocurrió un problema al buscar el cliente por su ID");

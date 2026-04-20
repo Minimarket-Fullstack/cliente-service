@@ -17,9 +17,9 @@ public class ClienteService {
         return clienteRepository.findByActivoTrue();
         // para q no liste los inactivos también
     }
-                                                                            //.get Claude me reviso el código
-                                                                            // y me dijo q era mejor ponerle orelse, pq
-                                                                            //sino me retorna un 500 y lo quiero mantener con lo q tengo en el controller
+
+    //era mejor ponerle orelse, pq
+    //sino me retorna un 500 y lo quiero mantener con lo q tengo en el controller
     public Cliente findById(long id){ return clienteRepository.findById(id).orElse(null);}
 
     public Cliente save(Cliente cliente){ return clienteRepository.save(cliente);}

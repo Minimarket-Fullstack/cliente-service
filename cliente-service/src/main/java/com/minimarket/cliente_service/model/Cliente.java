@@ -3,7 +3,6 @@ package com.minimarket.cliente_service.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jdk.jfr.DataAmount;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     @Column(unique = true, length = 13, nullable = false)
     @NotBlank(message = "EL RUT ES OBLIGATORIO")
     private String rut;

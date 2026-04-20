@@ -10,11 +10,11 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
+    //algunos métodos fomes conn convención de nombres.
+
     Optional<Cliente> findByRut(String rut);
 
     List<Cliente> findByActivoTrue();
-
-
 
 
 }
