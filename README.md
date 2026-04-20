@@ -26,3 +26,69 @@ INSERT INTO cliente (rut, nombre, apellido, email, activo) VALUES
 ('18181818-1', 'Felipe', 'Ramírez', 'feli.ramirez@gmail.com', 1),
 ('19191919-1', 'Constanza', 'Vega', 'coni.vega@gmail.com', 1);
 ```
+
+# 🧪 Pruebas Postman - cliente-service
+
+## GET - Listar clientes activos
+`GET http://localhost:8080/api/v1/clientes`
+
+## GET - Buscar por ID
+`GET http://localhost:8080/api/v1/clientes/1/existe`
+`GET http://localhost:8080/api/v1/clientes/5/existe`
+
+## GET - Buscar por RUT
+`GET http://localhost:8080/api/v1/clientes/rut/12345678-9`
+`GET http://localhost:8080/api/v1/clientes/rut/33333333-3`
+
+## POST - Crear cliente
+`POST http://localhost:8080/api/v1/clientes`
+```json
+{
+    "rut": "20202020-2",
+    "nombre": "Prueba",
+    "apellido": "Apellido",
+    "email": "prueba@gmail.com",
+    "activo": true
+}
+```
+
+## POST - RUT duplicado
+`POST http://localhost:8080/api/v1/clientes`
+```json
+{
+    "rut": "12345678-9",
+    "nombre": "Test",
+    "apellido": "Test",
+    "email": "test2@gmail.com",
+    "activo": true
+}
+```
+
+## POST - Campos vacíos
+`POST http://localhost:8080/api/v1/clientes`
+```json
+{
+    "rut": "",
+    "nombre": "",
+    "apellido": "",
+    "email": "noesunemail",
+    "activo": true
+}
+```
+
+## PUT - Actualizar cliente
+`PUT http://localhost:8080/api/v1/clientes/1`
+```json
+{
+    "nombre": "JuanActualizado",
+    "apellido": "PérezActualizado",
+    "email": "juan.actualizado@gmail.com",
+    "activo": true
+}
+```
+
+## DELETE - Desactivar cliente
+`DELETE http://localhost:8080/api/v1/clientes/eliminar/2/98765432-1`
+
+## DELETE - RUT incorrecto
+`DELETE http://localhost:8080/api/v1/clientes/eliminar/2/99999999-9`

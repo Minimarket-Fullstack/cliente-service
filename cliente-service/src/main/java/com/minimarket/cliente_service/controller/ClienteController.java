@@ -160,13 +160,13 @@ public class ClienteController {
 
             if(clienteEncontrado == null){
                 Map<String, String> error = new HashMap<>();
-                error.put("error", "cliente no encontrado");
+                error.put("error", "El cleinte no ha sido encontrado");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
             }
 
             if(!clienteEncontrado.isActivo()){
                 Map<String, String> error = new HashMap<>();
-                error.put("error", "cliente se encuentra inactivo");
+                error.put("error", "El cliente se encuentra inactivo");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
             }
 
