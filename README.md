@@ -27,7 +27,7 @@ INSERT INTO cliente (rut, nombre, apellido, email, activo) VALUES
 ('19191919-1', 'Constanza', 'Vega', 'coni.vega@gmail.com', 1);
 ```
 
-# 🧪 Pruebas Postman - cliente-service
+# Pruebas Postman - cliente-service
 
 ## GET - Listar clientes activos
 `GET http://localhost:8080/api/v1/clientes`
