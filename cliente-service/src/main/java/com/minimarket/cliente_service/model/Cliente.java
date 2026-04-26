@@ -18,33 +18,20 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(unique = true, length = 13, nullable = false)
-    @NotBlank(message = "EL RUT ES OBLIGATORIO")
+    //@NotBlank(message = "EL RUT ES OBLIGATORIO")
     private String rut;
 
     @Column(nullable = false)
-    @NotBlank(message = "EL NOMBRE ES OBLIGATORIO")
+    //@NotBlank(message = "EL NOMBRE ES OBLIGATORIO")
     private String nombre;
 
     @Column(nullable = false)
-    @NotBlank(message = "EL APELLIDO ES OBLIGATORIO")
+    //@NotBlank(message = "EL APELLIDO ES OBLIGATORIO")
     private String apellido;
 
     @Column(nullable = false, unique = true)
-    @Email(message = "EL EMAIL DEBE SER VÁLIDO")
+    //@Email(message = "EL EMAIL DEBE SER VÁLIDO")
     private String email;
-
-
-    //Borrado lógico, para que queden las compras, pero no el ID del q compra..
-    @Column(nullable = false)
-    private boolean activo = true;
-
-
-
-
-
-
-
 
 }
