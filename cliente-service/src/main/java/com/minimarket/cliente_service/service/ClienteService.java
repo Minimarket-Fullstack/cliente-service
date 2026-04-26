@@ -4,6 +4,7 @@ import com.minimarket.cliente_service.dto.ClienteRequestDTO;
 import com.minimarket.cliente_service.dto.ClienteResponseDTO;
 import com.minimarket.cliente_service.model.Cliente;
 import com.minimarket.cliente_service.repository.ClienteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ClienteService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+
+    private final ClienteRepository clienteRepository;
 
     private ClienteResponseDTO mapToDTO(Cliente cliente){
         return new ClienteResponseDTO(
@@ -26,8 +28,6 @@ public class ClienteService {
                 cliente.getEmail()
         );
     }
-
-
 
     public List<ClienteResponseDTO> obtenerTodos(){
         return clienteRepository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
@@ -42,18 +42,23 @@ public class ClienteService {
         return mapToDTO(clienteRepository.save(cliente));
     }
 
-    public Cliente save(Cliente cliente){ return clienteRepository.save(cliente);}
-
-    public boolean existePorRut(String rut){
-        return clienteRepository.findByRut(rut).isPresent();
+    public Optional<ClienteResponseDTO> actualizar(Long id, ClienteRequestDTO dto){
+        return clienteRepository.findById(id).map( existente ->{
+            existente.setRut(dto.getRut());
+            existente.setNombre(dto.getNombre());
+            existente.setApellido(dto.getApellido());
+            existente.setEmail(dto.getEmail());
+            return mapToDTO(clienteRepository.save(existente));
+        });
     }
 
-    public Cliente findByRut(String rut){
-        return clienteRepository.findByRut(rut).orElse(null);
+    public void eliminarCli(Long id){ clienteRepository.deleteById(id);}
+
+    public Optional<ClienteResponseDTO> obtenerPorRut(String rut){
+        return clienteRepository.findByRut(rut).map(this::mapToDTO);
     }
 
-
-
-
-
+    public List<ClienteResponseDTO> buscarPorNombre(String nombre){
+        return clienteRepository.findByNombreContainingIgnoreCase(nombre).stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
 }
