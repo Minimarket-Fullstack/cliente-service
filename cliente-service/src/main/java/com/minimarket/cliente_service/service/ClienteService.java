@@ -5,9 +5,7 @@ import com.minimarket.cliente_service.dto.ClienteResponseDTO;
 import com.minimarket.cliente_service.model.Cliente;
 import com.minimarket.cliente_service.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,7 +13,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ClienteService {
-
 
     private final ClienteRepository clienteRepository;
 
@@ -30,7 +27,7 @@ public class ClienteService {
     }
 
     public List<ClienteResponseDTO> obtenerTodos(){
-        return clienteRepository.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
+        return clienteRepository.findByActivoTrue().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     public Optional<ClienteResponseDTO> obtenerPorId(Long id){
@@ -38,13 +35,13 @@ public class ClienteService {
     }
 
     public ClienteResponseDTO guardar(ClienteRequestDTO dto){
-        Cliente cliente = new Cliente(null, dto.getRut(),dto.getNombre(), dto.getApellido(), dto.getEmail());
+        Cliente cliente = new Cliente(null, dto.getRut(),dto.getNombre(), dto.getApellido(), dto.getEmail(), true);
         return mapToDTO(clienteRepository.save(cliente));
     }
 
+    //quite el rut pq no debería ser editable
     public Optional<ClienteResponseDTO> actualizar(Long id, ClienteRequestDTO dto){
-        return clienteRepository.findById(id).map( existente ->{
-            existente.setRut(dto.getRut());
+        return clienteRepository.findByIdAndActivoTrue(id).map( existente ->{
             existente.setNombre(dto.getNombre());
             existente.setApellido(dto.getApellido());
             existente.setEmail(dto.getEmail());
@@ -52,7 +49,11 @@ public class ClienteService {
         });
     }
 
-    public void eliminarCli(Long id){ clienteRepository.deleteById(id);}
+    public void eliminarCli(Long id){
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente no encontrado con el id: " + id));
+        cliente.setActivo(false);
+        clienteRepository.save(cliente);
+    }
 
     public Optional<ClienteResponseDTO> obtenerPorRut(String rut){
         return clienteRepository.findByRut(rut).map(this::mapToDTO);

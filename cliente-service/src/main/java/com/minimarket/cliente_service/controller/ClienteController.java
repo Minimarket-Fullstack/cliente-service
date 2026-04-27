@@ -2,7 +2,6 @@ package com.minimarket.cliente_service.controller;
 
 import com.minimarket.cliente_service.dto.ClienteRequestDTO;
 import com.minimarket.cliente_service.dto.ClienteResponseDTO;
-import com.minimarket.cliente_service.model.Cliente;
 import com.minimarket.cliente_service.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +40,6 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
-        if(clienteService.obtenerPorId(id).isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
         clienteService.eliminarCli(id);
         return ResponseEntity.noContent().build();
     }

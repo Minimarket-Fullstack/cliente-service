@@ -1,8 +1,7 @@
 package com.minimarket.cliente_service.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,5 +32,8 @@ public class Cliente {
     @Column(nullable = false, unique = true)
     //@Email(message = "EL EMAIL DEBE SER VÁLIDO")
     private String email;
+
+    //borrado lógico
+    private boolean activo = true;
 
 }
