@@ -5,6 +5,8 @@ import com.minimarket.cliente_service.dto.ClienteResponseDTO;
 import com.minimarket.cliente_service.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.List;
 @RequestMapping("/api/clientes")
 @RequiredArgsConstructor
 public class ClienteController {
+
+
+    private static final Logger log = LoggerFactory.getLogger(ClienteService.class);
 
     private final ClienteService clienteService;
 
@@ -23,6 +28,7 @@ public class ClienteController {
 
      @GetMapping("/{id}")
     public ResponseEntity<ClienteResponseDTO> obtenerPorId(@PathVariable Long id){
+        log.info("Buscando paciente con el id: {}", id);
         return clienteService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

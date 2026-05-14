@@ -6,6 +6,9 @@ import com.minimarket.cliente_service.model.Cliente;
 import com.minimarket.cliente_service.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,11 +17,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ClienteService {
 
+    //private static final Logger logss = LoggerFactory.getLogger(ClienteService.class);
     private final ClienteRepository clienteRepository;
 
     private ClienteResponseDTO mapToDTO(Cliente cliente){
@@ -40,6 +45,7 @@ public class ClienteService {
     }
 
     public ClienteResponseDTO guardar(ClienteRequestDTO dto){
+        log.info("Guardando cliente con el nombre: {}", dto.getNombre());
         Cliente cliente = new Cliente(null, dto.getRut(),dto.getNombre(), dto.getApellido(), dto.getEmail(), true);
         return mapToDTO(clienteRepository.save(cliente));
     }
