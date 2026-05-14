@@ -7,13 +7,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     List<Cliente> findByActivoTrue();
 
     Optional<Cliente> findByRut(String rut);
-
-    List<Cliente> findByNombreContainingIgnoreCase(String nombre);
+    //hacer q retorne una lista.
+    List<Cliente> findByNombreContainingIgnoreCaseAndActivoTrue(String nombre);
 
     Optional<Cliente> findByIdAndActivoTrue(Long id);
 

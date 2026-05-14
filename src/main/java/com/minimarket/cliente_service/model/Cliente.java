@@ -18,19 +18,15 @@ public class Cliente {
     private Long id;
 
     @Column(unique = true, length = 13, nullable = false)
-    //@NotBlank(message = "EL RUT ES OBLIGATORIO")
     private String rut;
 
     @Column(nullable = false)
-    //@NotBlank(message = "EL NOMBRE ES OBLIGATORIO")
     private String nombre;
 
     @Column(nullable = false)
-    //@NotBlank(message = "EL APELLIDO ES OBLIGATORIO")
     private String apellido;
 
     @Column(nullable = false, unique = true)
-    //@Email(message = "EL EMAIL DEBE SER VÁLIDO")
     private String email;
 
     //borrado lógico

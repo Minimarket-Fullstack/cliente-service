@@ -40,6 +40,12 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id){
+        //esta mal esto, pq si no lo encuentra me retorna 500
+//        if(clienteService.obtenerPorId(id).isEmpty()){
+//            return ResponseEntity.notFound().build();
+//        }
+
+        //lo dearriba lo manejo en el service
         clienteService.eliminarCli(id);
         return ResponseEntity.noContent().build();
     }
@@ -51,7 +57,14 @@ public class ClienteController {
 
     @GetMapping("/nombre/{nombre}")
     public ResponseEntity<List<ClienteResponseDTO>> buscarPorNombre(@PathVariable String nombre){
-        return ResponseEntity.ok(clienteService.buscarPorNombre(nombre));
+        //y q retorno si la lista esta vacía? si la dejo así va a tirar un 200 todo el rato
+        //no se si sea bueno
+        List<ClienteResponseDTO> listaDto = clienteService.buscarPorNombre(nombre);
+        if(!listaDto.isEmpty()){
+            return ResponseEntity.ok(listaDto);
+        }
+        return ResponseEntity.noContent().build();// 204
+
     }
 
 }
