@@ -56,6 +56,10 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+
+    //Retornar en el postman un json
+
+
     @GetMapping("/rut/{rut}")
     public ResponseEntity<ClienteResponseDTO> buscarPorRut(@PathVariable String rut){
         return clienteService.obtenerPorRut(rut).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
