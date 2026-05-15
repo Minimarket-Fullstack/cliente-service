@@ -17,7 +17,7 @@ import java.util.List;
 public class ClienteController {
 
 
-    private static final Logger log = LoggerFactory.getLogger(ClienteService.class);
+    private static final Logger log = LoggerFactory.getLogger(ClienteController.class);
 
     private final ClienteService clienteService;
 
@@ -55,6 +55,10 @@ public class ClienteController {
         clienteService.eliminarCli(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    //Retornar en el postman un json
+
 
     @GetMapping("/rut/{rut}")
     public ResponseEntity<ClienteResponseDTO> buscarPorRut(@PathVariable String rut){
