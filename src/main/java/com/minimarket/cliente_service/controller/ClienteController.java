@@ -17,7 +17,7 @@ import java.util.List;
 public class ClienteController {
 
 
-    private static final Logger log = LoggerFactory.getLogger(ClienteService.class);
+    private static final Logger log = LoggerFactory.getLogger(ClienteController.class);
 
     private final ClienteService clienteService;
 
