@@ -11,9 +11,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Service
+//genera y valida los tokesn
 public class JwtService {
 
-    @Value("$jwt.secret}")
+    @Value("${jwt.secret}")
     private String secretKey;
 
     private final long JWT_EXPIRATION = 86400000L;
@@ -22,11 +23,13 @@ public class JwtService {
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
+    //genero el token para  un usuari oautenticado
     public String generarToken(UserDetails usuario){
         return Jwts.builder().subject(usuario.getUsername())
                 .claim("roles", usuario.getAuthorities()).issuedAt(new Date()).expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION)).signWith(getSigningKey()).compact();
     }
 
+    //extraigo el username del token
     public String extraerUsername(String token){
         return Jwts.parser().
                 verifyWith(getSigningKey())
@@ -34,6 +37,11 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
+    }
+
+    public boolean validarToken(String token, UserDetails usuario){
+        String username = extraerUsername(token);
+        return username.equalsIgnoreCase(usuario.getUsername());
     }
 
 }

@@ -43,7 +43,7 @@ public class DataInitializer implements CommandLineRunner {
         clienteRepository.save(new Cliente(null, "18181818-1", "Felipe",    "Ramírez",   "feli.ramirez@gmail.com",     true));
         clienteRepository.save(new Cliente(null, "19191919-1", "Constanza", "Vega",      "coni.vega@gmail.com",        true));
 
-        log.info(">>> DataInitializer: Carga finalizada. {} clientes insertados correctamente.", (Object) clienteRepository.count());
+        log.info(">>> DataInitializer: Carga finalizada. {} clientes insertados correctamente.", clienteRepository.count());
 
     }
 }
