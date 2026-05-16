@@ -845,3 +845,105 @@ Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1004E:
 2026-05-16T11:10:39.102-04:00  INFO 1855 --- [cliente-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-05-16T11:10:39.104-04:00  INFO 1855 --- [cliente-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-05-16T11:10:39.106-04:00  INFO 1855 --- [cliente-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-16T11:25:06.073-04:00  INFO 381 --- [cliente-service] [main] c.m.c.ClienteServiceApplication          : Starting ClienteServiceApplication using Java 21.0.11 with PID 381 (/home/nicolas/Escritorio/proyecto-fullstack/cliente-service/target/classes started by nicolas in /home/nicolas/Escritorio/proyecto-fullstack/cliente-service)
+2026-05-16T11:25:06.077-04:00  INFO 381 --- [cliente-service] [main] c.m.c.ClienteServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-05-16T11:25:06.778-04:00  INFO 381 --- [cliente-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-16T11:25:06.819-04:00  INFO 381 --- [cliente-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 1 JPA repository interface.
+2026-05-16T11:25:07.327-04:00  INFO 381 --- [cliente-service] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)
+2026-05-16T11:25:07.338-04:00  INFO 381 --- [cliente-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-16T11:25:07.339-04:00  INFO 381 --- [cliente-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-05-16T11:25:07.382-04:00  INFO 381 --- [cliente-service] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1266 ms
+2026-05-16T11:25:07.667-04:00  INFO 381 --- [cliente-service] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-05-16T11:25:07.706-04:00  INFO 381 --- [cliente-service] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-05-16T11:25:08.151-04:00  INFO 381 --- [cliente-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-16T11:25:08.182-04:00  INFO 381 --- [cliente-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-16T11:25:08.508-04:00  INFO 381 --- [cliente-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3aab42d6
+2026-05-16T11:25:08.509-04:00  INFO 381 --- [cliente-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-16T11:25:08.587-04:00  WARN 381 --- [cliente-service] [main] org.hibernate.orm.jdbc                   : HHH100045: Could not obtain connection metadata: java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'WHERE'
+2026-05-16T11:25:08.599-04:00  WARN 381 --- [cliente-service] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-16T11:25:08.609-04:00  INFO 381 --- [cliente-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: MySQLDialect
+	Database version: 8.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: NONE [default NONE]
+	JDBC fetch size: undefined/unknown
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-16T11:25:09.283-04:00  INFO 381 --- [cliente-service] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-16T11:25:09.399-04:00  INFO 381 --- [cliente-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-16T11:25:09.487-04:00  INFO 381 --- [cliente-service] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-16T11:25:09.643-04:00  INFO 381 --- [cliente-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-05-16T11:25:10.161-04:00  INFO 381 --- [cliente-service] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'
+2026-05-16T11:25:10.168-04:00  INFO 381 --- [cliente-service] [main] c.m.c.ClienteServiceApplication          : Started ClienteServiceApplication in 4.531 seconds (process running for 4.921)
+2026-05-16T11:25:10.446-04:00  INFO 381 --- [cliente-service] [main] c.m.c.config.DataInitializer             : >>> DataInitalizer: La BD ya tiene datos, se omite la carga incial
+2026-05-16T11:25:24.969-04:00  INFO 381 --- [cliente-service] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-16T11:25:24.969-04:00  INFO 381 --- [cliente-service] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-16T11:25:24.972-04:00  INFO 381 --- [cliente-service] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-05-16T11:25:45.995-04:00  INFO 381 --- [cliente-service] [http-nio-8081-exec-3] c.m.c.controller.ClienteController       : Buscando paciente con el id: 2
+2026-05-16T11:25:46.218-04:00  WARN 381 --- [cliente-service] [http-nio-8081-exec-3] c.m.c.exception.GlobalExceptionHandler   : CLIENTE NO ENCONTRADO: CLIENTE CON EL ID 2 NO ENCONTRADO
+2026-05-16T11:27:19.970-04:00  INFO 381 --- [cliente-service] [http-nio-8081-exec-7] c.m.c.controller.ClienteController       : Buscando paciente con el id: 1
+2026-05-16T11:27:19.974-04:00  WARN 381 --- [cliente-service] [http-nio-8081-exec-7] c.m.c.exception.GlobalExceptionHandler   : CLIENTE NO ENCONTRADO: CLIENTE CON EL ID 1 NO ENCONTRADO
+2026-05-16T11:27:54.356-04:00  WARN 381 --- [cliente-service] [http-nio-8081-exec-9] c.m.c.exception.GlobalExceptionHandler   : CLIENTE NO ENCONTRADO: CLIENTE CON EL ID 2 NO ENCONTRADO
+2026-05-16T11:28:27.649-04:00  INFO 381 --- [cliente-service] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-16T11:28:27.650-04:00  INFO 381 --- [cliente-service] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-05-16T11:28:27.654-04:00  INFO 381 --- [cliente-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-16T11:28:27.656-04:00  INFO 381 --- [cliente-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-16T11:28:27.662-04:00  INFO 381 --- [cliente-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-16T11:28:30.495-04:00  INFO 542 --- [cliente-service] [main] c.m.c.ClienteServiceApplication          : Starting ClienteServiceApplication using Java 21.0.11 with PID 542 (/home/nicolas/Escritorio/proyecto-fullstack/cliente-service/target/classes started by nicolas in /home/nicolas/Escritorio/proyecto-fullstack/cliente-service)
+2026-05-16T11:28:30.498-04:00  INFO 542 --- [cliente-service] [main] c.m.c.ClienteServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-05-16T11:28:31.167-04:00  INFO 542 --- [cliente-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-16T11:28:31.214-04:00  INFO 542 --- [cliente-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 1 JPA repository interface.
+2026-05-16T11:28:31.721-04:00  INFO 542 --- [cliente-service] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)
+2026-05-16T11:28:31.734-04:00  INFO 542 --- [cliente-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-16T11:28:31.734-04:00  INFO 542 --- [cliente-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-05-16T11:28:31.767-04:00  INFO 542 --- [cliente-service] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1223 ms
+2026-05-16T11:28:32.046-04:00  INFO 542 --- [cliente-service] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-05-16T11:28:32.092-04:00  INFO 542 --- [cliente-service] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-05-16T11:28:32.462-04:00  INFO 542 --- [cliente-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-16T11:28:32.484-04:00  INFO 542 --- [cliente-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-16T11:28:32.817-04:00  INFO 542 --- [cliente-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4dad2363
+2026-05-16T11:28:32.819-04:00  INFO 542 --- [cliente-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-16T11:28:32.898-04:00  WARN 542 --- [cliente-service] [main] org.hibernate.orm.jdbc                   : HHH100045: Could not obtain connection metadata: java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'WHERE'
+2026-05-16T11:28:32.909-04:00  WARN 542 --- [cliente-service] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-16T11:28:32.918-04:00  INFO 542 --- [cliente-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: MySQLDialect
+	Database version: 8.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: NONE [default NONE]
+	JDBC fetch size: undefined/unknown
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-16T11:28:33.568-04:00  INFO 542 --- [cliente-service] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-16T11:28:33.677-04:00  INFO 542 --- [cliente-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-16T11:28:33.739-04:00  INFO 542 --- [cliente-service] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-16T11:28:33.901-04:00  INFO 542 --- [cliente-service] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-05-16T11:28:34.406-04:00  INFO 542 --- [cliente-service] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'
+2026-05-16T11:28:34.413-04:00  INFO 542 --- [cliente-service] [main] c.m.c.ClienteServiceApplication          : Started ClienteServiceApplication in 4.344 seconds (process running for 4.701)
+2026-05-16T11:28:34.692-04:00  INFO 542 --- [cliente-service] [main] c.m.c.config.DataInitializer             : >>> DataInitalizer: La BD ya tiene datos, se omite la carga incial
+2026-05-16T11:29:05.462-04:00  INFO 542 --- [cliente-service] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-16T11:29:05.462-04:00  INFO 542 --- [cliente-service] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-16T11:29:05.464-04:00  INFO 542 --- [cliente-service] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-05-16T11:29:30.173-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-3] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 1062, SQLState: 23000
+2026-05-16T11:29:30.174-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-3] org.hibernate.orm.jdbc.error             : Duplicate entry 'anita.actualizado@gmail.com' for key 'UKcmxo70m08n43599l3h0h07cc6'
+2026-05-16T11:29:30.179-04:00 ERROR 542 --- [cliente-service] [http-nio-8081-exec-3] c.m.c.exception.GlobalExceptionHandler   : RESTRICCIÓN DE CONSTRAINT: could not execute statement [Duplicate entry 'anita.actualizado@gmail.com' for key 'UKcmxo70m08n43599l3h0h07cc6'] [update cliente set activo=?,apellido=?,email=?,nombre=?,rut=? where id=?]; SQL [update cliente set activo=?,apellido=?,email=?,nombre=?,rut=? where id=?]; constraint [UKcmxo70m08n43599l3h0h07cc6]
+2026-05-16T11:29:33.732-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-4] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 1062, SQLState: 23000
+2026-05-16T11:29:33.732-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-4] org.hibernate.orm.jdbc.error             : Duplicate entry 'anita.actualizado@gmail.com' for key 'UKcmxo70m08n43599l3h0h07cc6'
+2026-05-16T11:29:33.734-04:00 ERROR 542 --- [cliente-service] [http-nio-8081-exec-4] c.m.c.exception.GlobalExceptionHandler   : RESTRICCIÓN DE CONSTRAINT: could not execute statement [Duplicate entry 'anita.actualizado@gmail.com' for key 'UKcmxo70m08n43599l3h0h07cc6'] [update cliente set activo=?,apellido=?,email=?,nombre=?,rut=? where id=?]; SQL [update cliente set activo=?,apellido=?,email=?,nombre=?,rut=? where id=?]; constraint [UKcmxo70m08n43599l3h0h07cc6]
+2026-05-16T11:29:34.699-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-5] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 1062, SQLState: 23000
+2026-05-16T11:29:34.699-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-5] org.hibernate.orm.jdbc.error             : Duplicate entry 'anita.actualizado@gmail.com' for key 'UKcmxo70m08n43599l3h0h07cc6'
+2026-05-16T11:29:34.700-04:00 ERROR 542 --- [cliente-service] [http-nio-8081-exec-5] c.m.c.exception.GlobalExceptionHandler   : RESTRICCIÓN DE CONSTRAINT: could not execute statement [Duplicate entry 'anita.actualizado@gmail.com' for key 'UKcmxo70m08n43599l3h0h07cc6'] [update cliente set activo=?,apellido=?,email=?,nombre=?,rut=? where id=?]; SQL [update cliente set activo=?,apellido=?,email=?,nombre=?,rut=? where id=?]; constraint [UKcmxo70m08n43599l3h0h07cc6]
+2026-05-16T11:29:43.856-04:00  INFO 542 --- [cliente-service] [http-nio-8081-exec-7] c.m.c.controller.ClienteController       : Buscando paciente con el id: 2
+2026-05-16T11:29:43.928-04:00  WARN 542 --- [cliente-service] [http-nio-8081-exec-7] c.m.c.exception.GlobalExceptionHandler   : CLIENTE NO ENCONTRADO: CLIENTE CON EL ID 2 NO ENCONTRADO
+2026-05-16T11:32:43.362-04:00  INFO 542 --- [cliente-service] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-16T11:32:43.365-04:00  INFO 542 --- [cliente-service] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-05-16T11:32:43.369-04:00  INFO 542 --- [cliente-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-16T11:32:43.370-04:00  INFO 542 --- [cliente-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-16T11:32:43.375-04:00  INFO 542 --- [cliente-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -79,6 +79,7 @@
 
 ```json
 {
+    "rut": "12345678-9",
     "nombre": "JuanActualizado",
     "apellido": "PérezActualizado",
     "email": "juan.actualizado@gmail.com"

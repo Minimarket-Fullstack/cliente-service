@@ -2,6 +2,7 @@ package com.minimarket.cliente_service.service;
 
 import com.minimarket.cliente_service.dto.ClienteRequestDTO;
 import com.minimarket.cliente_service.dto.ClienteResponseDTO;
+import com.minimarket.cliente_service.dto.ClienteUpdateDTO;
 import com.minimarket.cliente_service.exception.ClienteNotFoundException;
 import com.minimarket.cliente_service.model.Cliente;
 import com.minimarket.cliente_service.repository.ClienteRepository;
@@ -42,7 +43,7 @@ public class ClienteService {
     }
 
     public Optional<ClienteResponseDTO> obtenerPorId(Long id){
-        return clienteRepository.findById(id).map(this::mapToDTO);
+        return clienteRepository.findByIdAndActivoTrue(id).map(this::mapToDTO);
     }
 
     public ClienteResponseDTO guardar(ClienteRequestDTO dto){
@@ -52,7 +53,8 @@ public class ClienteService {
     }
 
     //quite el rut pq no debería ser editablez
-    public Optional<ClienteResponseDTO> actualizar(Long id, ClienteRequestDTO dto){
+    //Actualizar independiente de q el cliente este activo ono
+    public Optional<ClienteResponseDTO> actualizar(Long id, ClienteUpdateDTO dto){
         return clienteRepository.findByIdAndActivoTrue(id).map( existente ->{
             existente.setNombre(dto.getNombre());
             existente.setApellido(dto.getApellido());
@@ -67,6 +69,7 @@ public class ClienteService {
                 .findById(id)           //responsestatusexception podría ser en vez de runtime exception
                 //el globalexceptionhandlern no pasa por acá
                 .orElseThrow(() -> new ClienteNotFoundException(id));
+
         //necesito q si el cliente no esta activo, me retorne que ya fue eliminado, no un 500
         if(!cliente.isActivo()){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El cliente ya se encuentra eliminado."); // un 409
