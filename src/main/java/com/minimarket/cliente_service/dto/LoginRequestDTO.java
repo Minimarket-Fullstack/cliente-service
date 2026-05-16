@@ -1,6 +1,5 @@
 package com.minimarket.cliente_service.dto;
 
-
 import lombok.Data;
 
 @Data

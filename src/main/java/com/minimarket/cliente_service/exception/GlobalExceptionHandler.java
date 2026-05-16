@@ -23,13 +23,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("ERROR", "CLIENTE NO ENCONTRADO", "DETALLE", exception.getMessage()));
     }
 
-
     //Spring evalua los handlesr mas específico a más general
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationErrors(MethodArgumentNotValidException ex){
         Map<String, String> errores = new LinkedHashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> errores.put(error.getField(),error.getDefaultMessage()));
-        log.warn("[VALIDACIÓN] Petición rechazada. Campos con error: {}", errores);
+        log.warn("[VALIDACIÓN] Petición rechazada. Campos con error: {}", ex.toString());
         //400 y le muestro un mapa de los errores.
         return ResponseEntity.badRequest().body(errores);
     }
@@ -37,12 +36,12 @@ public class GlobalExceptionHandler {
     //rut duplicadoo. unique true rut
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String,String>> handleDuplicate(DataIntegrityViolationException dx){
-        log.error("RESTRICCIÓN DE CONSTRAINT: {}", dx.getMessage()); //bd
+        log.error("RESTRICCIÓN DE CONSTRAINT: {}", dx); //bd
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("ERROR", "El rut o el email ya estan registrados."));
     }
 
     //RECURSO NO ENCONTRADO
-    @ExceptionHandler
+    @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Map<String, String>> handleNotFound(NoSuchElementException ex){
         log.warn("NOT FOUND: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("ERROR", "RECURSO NO ENCONTRADO", "DETALLE", ex.getMessage()));

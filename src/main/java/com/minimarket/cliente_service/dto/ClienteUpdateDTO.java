@@ -13,6 +13,7 @@ public class ClienteUpdateDTO {
 
     @NotBlank(message="EL NOMBRE ES OBLIGATORIO")
     private String nombre;
+
     @NotBlank(message="EL APELLIDO ES OBLIGATORIO")
     private String apellido;
 

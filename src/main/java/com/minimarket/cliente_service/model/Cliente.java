@@ -30,6 +30,7 @@ public class Cliente {
     private String email;
 
     //borrado lógico
+    @Column(nullable = false)
     private boolean activo = true;
 
 }

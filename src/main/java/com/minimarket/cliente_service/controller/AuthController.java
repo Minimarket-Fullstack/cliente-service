@@ -1,6 +1,5 @@
 package com.minimarket.cliente_service.controller;
 
-
 import com.minimarket.cliente_service.dto.LoginRequestDTO;
 import com.minimarket.cliente_service.service.JwtService;
 import lombok.RequiredArgsConstructor;

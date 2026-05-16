@@ -8,7 +8,6 @@ import com.minimarket.cliente_service.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +19,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class ClienteController {
-
-
-    //private static final Logger log = LoggerFactory.getLogger(ClienteController.class);
 
     private final ClienteService clienteService;
 
@@ -37,7 +33,7 @@ public class ClienteController {
      @GetMapping("/{id}")
      @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<ClienteResponseDTO> obtenerPorId(@PathVariable Long id){
-        log.info("Buscando paciente con el id: {}", id);
+        log.info("BUSCANDO CLIENTE CON ID: {}", id);
         return clienteService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ClienteNotFoundException(id));
@@ -60,10 +56,11 @@ public class ClienteController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
         clienteService.eliminarCli(id);
-        return ResponseEntity.ok(Map.of("Mensaje", "Cliente eliminado correctamente"));
+        return ResponseEntity.ok(Map.of("MENSAJE", "CLIENTE ELIMINADO CORRECTAMENTE"));
     }
 
     //Retornar en el postman un json
+    //hacerle un handlexception?
     @GetMapping("/rut/{rut}")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public ResponseEntity<?> buscarPorRut(@PathVariable String rut){
