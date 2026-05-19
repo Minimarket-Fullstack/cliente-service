@@ -208,3 +208,13 @@ Con token del usuario `user` (rol USER, no puede crear):
   "email": "nopuede@gmail.com"
 }
 ```
+---
+
+## GET - Buscar por RUT de cliente eliminado (404)
+
+Verificar que el borrado lógico también aplica al buscar por RUT.
+El cliente `33333333-3` existe en la BD pero tiene `activo = false`:
+
+`GET http://localhost:8081/api/clientes/rut/33333333-3`
+
+Debe retornar `404` y no exponer el registro eliminado.

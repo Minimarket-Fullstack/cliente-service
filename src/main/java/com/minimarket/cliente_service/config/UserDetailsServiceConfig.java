@@ -14,6 +14,8 @@ public class UserDetailsServiceConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
+
+        //SOLO PARA PRUEBAS
         UserDetails usuario = User.withUsername("admin").password(passwordEncoder().encode("password1234")).roles("ADMIN").build();
 
         UserDetails user = User.withUsername("user").password(passwordEncoder().encode("password12345")).roles("USER").build();

@@ -18,4 +18,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     Optional<Cliente> findByIdAndActivoTrue(Long id);
 
+    Optional<Cliente> findByRutAndActivoTrue(String rut);
+
 }

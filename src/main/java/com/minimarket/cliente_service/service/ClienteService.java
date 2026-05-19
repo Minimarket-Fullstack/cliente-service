@@ -63,7 +63,7 @@ public class ClienteService {
     //el runetimeException agarra retoran un 500, voy a tener q hacer una exsception de q el cliente no see ncontro
     public void eliminarCli(Long id){
         Cliente cliente = clienteRepository
-                .findById(id)           //responsestatusexception podría ser en vez de runtime exception
+                .findByIdAndActivoTrue(id)           //responsestatusexception podría ser en vez de runtime exception
                 //el globalexceptionhandlern no pasa por acá
                 .orElseThrow(() -> new ClienteNotFoundException(id));
 
@@ -76,7 +76,7 @@ public class ClienteService {
     }
 
     public Optional<ClienteResponseDTO> obtenerPorRut(String rut){
-        return clienteRepository.findByRut(rut).map(this::mapToDTO);
+        return clienteRepository.findByRutAndActivoTrue(rut).map(this::mapToDTO);
     }
 
     public List<ClienteResponseDTO> buscarPorNombre(String nombre){

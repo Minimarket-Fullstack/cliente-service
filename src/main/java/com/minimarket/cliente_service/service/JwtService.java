@@ -26,7 +26,10 @@ public class JwtService {
     //genero el token para  un usuari oautenticado
     public String generarToken(UserDetails usuario){
         return Jwts.builder().subject(usuario.getUsername())
-                .claim("roles", usuario.getAuthorities()).issuedAt(new Date()).expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION)).signWith(getSigningKey()).compact();
+                .claim("roles",
+                        usuario.getAuthorities())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION)).signWith(getSigningKey()).compact();
     }
 
     //extraigo el username del token
