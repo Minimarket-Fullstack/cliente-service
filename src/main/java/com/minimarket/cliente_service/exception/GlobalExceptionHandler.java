@@ -46,6 +46,7 @@ public class GlobalExceptionHandler {
         log.warn("NOT FOUND: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("ERROR", "RECURSO NO ENCONTRADO", "DETALLE", ex.getMessage()));
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneric(Exception ex){
         log.warn("OCURRIÓ UN ERROR INESPERADO: ", ex);

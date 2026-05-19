@@ -29,7 +29,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.obtenerTodos());
     }
 
-    //Solo estos usuarios con ese rol pu3eden ver al paciente
+    //Solo estos usuarios con ese rol pu3eden ver al CLIENTE
      @GetMapping("/{id}")
      @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<ClienteResponseDTO> obtenerPorId(@PathVariable Long id){
