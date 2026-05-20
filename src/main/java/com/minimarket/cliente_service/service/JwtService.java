@@ -44,7 +44,11 @@ public class JwtService {
 
     public boolean validarToken(String token, UserDetails usuario){
         String username = extraerUsername(token);
-        return username.equalsIgnoreCase(usuario.getUsername());
+        //data expiration
+        Date expiration = Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload().getExpiration();
+
+        return username.equalsIgnoreCase(usuario.getUsername()) && expiration.after(new Date());
+
     }
 
 }
