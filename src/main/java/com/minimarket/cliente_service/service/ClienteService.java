@@ -1,8 +1,10 @@
 package com.minimarket.cliente_service.service;
 
+import com.minimarket.cliente_service.client.NotificacionClient;
 import com.minimarket.cliente_service.dto.ClienteRequestDTO;
 import com.minimarket.cliente_service.dto.ClienteResponseDTO;
 import com.minimarket.cliente_service.dto.ClienteUpdateDTO;
+import com.minimarket.cliente_service.dto.NotificacionRequestDTO;
 import com.minimarket.cliente_service.exception.ClienteNotFoundException;
 import com.minimarket.cliente_service.model.Cliente;
 import com.minimarket.cliente_service.repository.ClienteRepository;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final NotificacionClient notificacionClient;
 
     private ClienteResponseDTO mapToDTO(Cliente cliente){
         return new ClienteResponseDTO(
@@ -33,6 +36,19 @@ public class ClienteService {
                 cliente.getApellido(),
                 cliente.getEmail()
         );
+    }
+
+    //método para mandar notificaciones
+
+    private void notificar(String tipo, String mensaje){
+        try{
+            notificacionClient.enviarNotificacion(new NotificacionRequestDTO(tipo,mensaje));
+
+            log.info("NOTIFICACION ENVIADA: TIPO: {}",tipo);
+
+        }catch (Exception e){
+            log.warn("NO SE PUDO ENVIAR LA NOTIFICACIÓN - TIPO {} : {}", tipo,e.getMessage());
+        }
     }
 
     public List<ClienteResponseDTO> obtenerTodos(){
@@ -46,7 +62,11 @@ public class ClienteService {
     public ClienteResponseDTO guardar(ClienteRequestDTO dto){
         log.info("Guardando cliente con el nombre: {}", dto.getNombre());
         Cliente cliente = new Cliente(null, dto.getRut(),dto.getNombre(), dto.getApellido(), dto.getEmail(), true);
-        return mapToDTO(clienteRepository.save(cliente));
+        ClienteResponseDTO responseDTO = mapToDTO(clienteRepository.save(cliente));
+        //tengo q notificar
+        notificar("CLIENT-CREADO", "SISTEMA: SE HA REGISTRADO CON ÉXITO AL CLIENTE " +dto.getNombre() +" " + dto.getApellido() + " RUT: " + dto.getRut());
+
+        return responseDTO;
     }
 
     //quite el rut pq no debería ser editablez
@@ -56,7 +76,12 @@ public class ClienteService {
             existente.setNombre(dto.getNombre());
             existente.setApellido(dto.getApellido());
             existente.setEmail(dto.getEmail());
-            return mapToDTO(clienteRepository.save(existente));
+
+
+
+            ClienteResponseDTO responseDTO = mapToDTO(clienteRepository.save(existente));
+            notificar("CLIENTE_ACTUALIZADO", "SISTEMA: SE ACTUALIZARON LOS DATOS DEL CLIENTE: " + dto.getNombre() + " " + dto.getApellido() + ".");
+            return responseDTO;
         });
     }
 
@@ -73,6 +98,8 @@ public class ClienteService {
         }
         cliente.setActivo(false);
         clienteRepository.save(cliente);
+
+        notificar("CLIENTE ELIMINADO", "SISTEMA: SE ELIMINARON LOS DATOS DEL CLIENTE: " + cliente.getNombre() + " " + cliente.getApellido() + " ID: " + cliente.getId());
     }
 
     public Optional<ClienteResponseDTO> obtenerPorRut(String rut){
